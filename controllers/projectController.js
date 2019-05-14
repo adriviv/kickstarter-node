@@ -25,10 +25,7 @@ const multerOptions = {
 
 
 
-// =====================================
-//                  PROJECTS 
-// =====================================
-//INDEX
+//index
 exports.getProjects = async (req, res) => {
     // res.json({ it: 'Worked'})
     const projects = await Project.find();
@@ -36,25 +33,29 @@ exports.getProjects = async (req, res) => {
 };
 
 //SHOW
-exports.showProjectBySlug = async (req, res, next) => {
-     res.json(req.params);
-    // const project = await Project.findOne({ slug: req.params.slug});
-    // if (!project) return next();
-    // res.json(project);
-
+exports.showProject = async (req, res) => {
+     // res.json(req.params);
+     const project = await Project.findOne({ slug: req.params.id });
+     res.json(project);
 };
 
-// CREATE
-exports.createProject = async (req, res) => {
-    // console.log(req.body)
+
+// exports.getStoreBySlug = async (req, res, next) => {
+//     // res.json(req.params); ==> to see all the data return
+//     const store = await Store.findOne({ slug: req.params.slug }).populate('author reviews'); // populate: find the associate model and give access to all ots informations. 
+//     if (!store) return next();
+//      //res.json(store); // to see all the data that it is returned
+//      res.render('store', { store, title: store.name});
+// };
+
+
+// Create 
+exports.addProject = async (req, res) => {
+    console.log(req.body)
     const project = new Project(req.body);
+    console.log('1')
     await project.save();
     res.json({ status: 'created'});
-};
-
-// UPDATE
-exports.updadeProject = async (req, res) => {
 
 };
-
 

@@ -4,25 +4,25 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 const projectController = require('../controllers/projectController');
 
+// All the routes
+// router.get('/', projectController.homePage);
 
-//                            PROJECTS 
-//==================================================
-//INDEX
+//index
 router.get('/', catchErrors(projectController.getProjects));
 router.get('/projects', catchErrors(projectController.getProjects));
 
-// SHOW
-router.get('/project/:slug', catchErrors(projectController.showProjectBySlug))
-
+//SHOW 
+router.get('/show/:slug', catchErrors(projectController.showProject))
 
 // ADD
 router.post('/add', 
-    catchErrors(projectController.createProject)
+    catchErrors(projectController.addProject)
 );
 
-//UPDATE
-router.post('/add/:id', catchErrors(projectController.updateProject));
 
-
+// For static page can be done here: 
+// ==> router.get('/', (req, res) => {
+//     res.render('index');
+// })
 
 module.exports = router;
