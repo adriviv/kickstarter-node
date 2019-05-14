@@ -25,22 +25,36 @@ const multerOptions = {
 
 
 
-//index
+// =====================================
+//                  PROJECTS 
+// =====================================
+//INDEX
 exports.getProjects = async (req, res) => {
     // res.json({ it: 'Worked'})
     const projects = await Project.find();
     res.json({projects: projects});
 };
 
-
-
-// Create 
-exports.addStore = async (req, res) => {
-    console.log(req.body)
-    const project = new Project(req.body);
-    console.log('1')
-    await project.save();
-    res.json({ status: 'created'});
+//SHOW
+exports.showProjectBySlug = async (req, res, next) => {
+     res.json(req.params);
+    // const project = await Project.findOne({ slug: req.params.slug});
+    // if (!project) return next();
+    // res.json(project);
 
 };
+
+// CREATE
+exports.createProject = async (req, res) => {
+    // console.log(req.body)
+    const project = new Project(req.body);
+    await project.save();
+    res.json({ status: 'created'});
+};
+
+// UPDATE
+exports.updadeProject = async (req, res) => {
+
+};
+
 
