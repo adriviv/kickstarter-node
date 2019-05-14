@@ -40,22 +40,25 @@ exports.showProject = async (req, res) => {
 };
 
 
-// exports.getStoreBySlug = async (req, res, next) => {
-//     // res.json(req.params); ==> to see all the data return
-//     const store = await Store.findOne({ slug: req.params.slug }).populate('author reviews'); // populate: find the associate model and give access to all ots informations. 
-//     if (!store) return next();
-//      //res.json(store); // to see all the data that it is returned
-//      res.render('store', { store, title: store.name});
-// };
-
-
 // Create 
 exports.addProject = async (req, res) => {
-    console.log(req.body)
+    console.log(req.params)
     const project = new Project(req.body);
     console.log('1')
     await project.save();
     res.json({ status: 'created'});
 
+};
+
+
+//UPDATE
+exports.updateProject = async (req, res) => {
+
+    //console.log(req.body)
+    const project = await Project.findOneAndUpdate({ slug: req.params.id}, req.body, {
+        new: true, // return the new store instead of the old one
+        runValidators: true // run les validators du models
+     }).exec();
+     res.json({ status: 'updated' });
 };
 
