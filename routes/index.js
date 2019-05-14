@@ -11,11 +11,20 @@ const projectController = require('../controllers/projectController');
 router.get('/', catchErrors(projectController.getProjects));
 router.get('/projects', catchErrors(projectController.getProjects));
 
+//SHOW 
+router.get('/show/:slug', catchErrors(projectController.showProject));
 
 // ADD
 router.post('/add', 
-    catchErrors(projectController.addStore)
+    catchErrors(projectController.addProject)
 );
+
+// UPDATE
+router.post('/add/:slug', 
+    catchErrors(projectController.updateProject)
+);
+
+
 
 
 // For static page can be done here: 

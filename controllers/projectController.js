@@ -32,15 +32,33 @@ exports.getProjects = async (req, res) => {
     res.json({projects: projects});
 };
 
+//SHOW
+exports.showProject = async (req, res) => {
+    //  res.json(req.params);
+     const project = await Project.findOne({ _id: req.params.slug });
+     res.json(project);
+};
 
 
 // Create 
-exports.addStore = async (req, res) => {
-    console.log(req.body)
+exports.addProject = async (req, res) => {
+    console.log(req.params)
     const project = new Project(req.body);
     console.log('1')
     await project.save();
     res.json({ status: 'created'});
 
+};
+
+
+//UPDATE
+exports.updateProject = async (req, res) => {
+
+    //console.log(req.body)
+    const project = await Project.findOneAndUpdate({ slug: req.params.id}, req.body, {
+        new: true, // return the new store instead of the old one
+        runValidators: true // run les validators du models
+     }).exec();
+     res.json({ status: 'updated' });
 };
 
