@@ -34,8 +34,8 @@ exports.getProjects = async (req, res) => {
 
 //SHOW
 exports.showProject = async (req, res) => {
-     // res.json(req.params);
-     const project = await Project.findOne({ slug: req.params.id });
+    //  res.json(req.params);
+     const project = await Project.findOne({ _id: req.params.slug });
      res.json(project);
 };
 
