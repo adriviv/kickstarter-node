@@ -4,9 +4,9 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 const projectController = require('../controllers/projectController');
 
-// All the routes
-// router.get('/', projectController.homePage);
-
+//===============================================
+//                      STORE CRUD 
+//===============================================
 //index
 router.get('/', catchErrors(projectController.getProjects));
 router.get('/projects', catchErrors(projectController.getProjects));
@@ -25,7 +25,12 @@ router.post('/add/:slug',
 );
 
 
-
+//===============================================
+//                   TAGS  
+//===============================================
+//INDEX
+router.get('/tags/undefined', catchErrors(projectController.getProjectsByTag));
+router.get('/tags/:tag', catchErrors(projectController.getProjectsByTag));
 
 // For static page can be done here: 
 // ==> router.get('/', (req, res) => {
