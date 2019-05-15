@@ -43,9 +43,8 @@ exports.showProject = async (req, res) => {
 
 // CREATE
 exports.addProject = async (req, res) => {
-    console.log(req.params)
+    // console.log(req.params)
     const project = new Project(req.body);
-    console.log('1')
     await project.save();
     res.json({ status: 'created'});
 
@@ -75,20 +74,3 @@ exports.getProjectsByTag = async (req, res) => {
     const [tags, projects] = await Promise.all([tagsPromise, projectsPromise]); // We do 2 queries and wait for both finish to go to next step 
     res.json({ tags, title: 'Tags', tag, projects});
  };
-
-
-
-// //=========================================================================.
-// exports.getStoresByTag = async (req, res) => {
-//     // res.send('it works') // test if the routes is working 
-//     const tag = req.params.tag;
-//     const tagQuery = tag || {$exists: true}; // when no tags specify , show all 
-
-//     const tagsPromise = Store.getTagsList(); // create our ow method get TagsList in Store Model to fin tags 
-//     const storesPromise = Store.find({ tags: tagQuery});
-//     const [tags, stores] = await Promise.all([tagsPromise, storesPromise]); // We do 2 queries and wait for both finish to go to next step 
-//     // res.json(stores); // intermediary step to see info of store we have
-//     // res.json(tags); // intermediary step to see info of tags
-
-//      res.render('tag', { tags, title: 'Tags', tag, stores})
-// };
