@@ -14,11 +14,6 @@ const promisify = require('es6-promisify');
 //     successFlash: 'You are now logged in!'
 //   });
 
-
-// router.get('/login',
-//   passport.authenticate('local'),
-//   function(req, res) {
-//     res.render('login', {
-//     'title': 'Login'
-//     });
-//   });
+exports.login = (req, res) => {
+    res.send(req.user);
+};

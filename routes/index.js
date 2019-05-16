@@ -43,26 +43,11 @@ router.get('/tags/:tag', catchErrors(projectController.getProjectsByTag));
 //===============================================
 router.post('/register',
  userController.validateRegister, // 2- Check & validates all the form data
- userController.register);
-       // 3 - registrer the user 
-
-
-//  ); // // LOGIN  = userController + authController
-// router.get('/login', userController.loginForm); 
-router.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    res.send(req.user);
-  }
-);
-// // REGISTRER = userController + authController
-// router.get('/register', userController.registerForm); // 1-  create a register Form 
-
-// router.post('/register',
-// userController.validateRegister, // 2- Check & validates all the form data
-// userController.register,        // 3 - registrer the user 
-// authController.login           // 4- automatic login the user 
-// ); 
+ userController.register, 
+ passport.authenticate('local'), authController.login
+ );
+       
+router.post('/login', passport.authenticate('local'), authController.login);
 
 
 // //LOG OUT = authController
