@@ -6,10 +6,14 @@ const promisify = require('es6-promisify');
 // const mail = require('../handlers/mail'); // To send mail
 
 
-// Automatic login.
-exports.login = passport.authenticate('local', { // coudl be authenticate('facebook')
-    failureRedirect: '/login',
-    failureFlash: 'Failed Login!',
-    successRedirect: '/',
-    successFlash: 'You are Loged in !'
-});
+// // Automatic login.
+// exports.login = passport.authenticate('local', {
+//     failureRedirect: '/login',
+//     failureFlash: 'Failed Login!',
+//     successRedirect: '/',
+//     successFlash: 'You are now logged in!'
+//   });
+
+exports.login = (req, res) => {
+    res.send(req.user);
+};
