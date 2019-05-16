@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { catchErrors } = require('../handlers/errorHandlers');
+const passport = require('passport'); // for crypted passeword
 
 const projectController = require('../controllers/projectController');
 const userController = require('../controllers/userController');
@@ -42,14 +43,18 @@ router.get('/tags/:tag', catchErrors(projectController.getProjectsByTag));
 //===============================================
 router.post('/register',
  userController.validateRegister, // 2- Check & validates all the form data
- userController.register,
- authController.login);        // 3 - registrer the user 
+ userController.register);
+       // 3 - registrer the user 
 
 
 //  ); // // LOGIN  = userController + authController
 // router.get('/login', userController.loginForm); 
-// router.post('/login', authController.login);
-
+router.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    res.send(req.user);
+  }
+);
 // // REGISTRER = userController + authController
 // router.get('/register', userController.registerForm); // 1-  create a register Form 
 
