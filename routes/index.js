@@ -50,7 +50,7 @@ router.post('/register',
 router.post('/login', passport.authenticate('local'), authController.login);
 
 
-// //LOG OUT = authController
-// router.get('/logout', authController.logout);
+ //LOG OUT = authController
+ router.get('/logout', authController.logout);
 
 module.exports = router;

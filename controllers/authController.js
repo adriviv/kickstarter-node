@@ -5,15 +5,14 @@ const User = mongoose.model('User');
 const promisify = require('es6-promisify');
 // const mail = require('../handlers/mail'); // To send mail
 
-
-// // Automatic login.
-// exports.login = passport.authenticate('local', {
-//     failureRedirect: '/login',
-//     failureFlash: 'Failed Login!',
-//     successRedirect: '/',
-//     successFlash: 'You are now logged in!'
-//   });
-
+//LOGIN
 exports.login = (req, res) => {
     res.send(req.user);
+};
+
+
+//LOGOUT
+exports.logout = (req, res) => {
+    req.logout();
+    res.json({You: "are disconected"});    // res.redirect('/');
 };
