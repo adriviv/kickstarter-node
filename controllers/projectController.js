@@ -43,11 +43,10 @@ exports.showProject = async (req, res) => {
 
 // CREATE
 exports.addProject = async (req, res) => {
-    // console.log(req.params)
+    req.body.author = req.user._id; // make the reference to the user that has created the store. 
     const project = new Project(req.body);
     await project.save();
     res.json({ status: 'created'});
-
 };
 
 //UPDATE
