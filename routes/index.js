@@ -7,6 +7,7 @@ const projectController = require('../controllers/projectController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const reviewController = require('../controllers/reviewController');
+const pledgeController = require('../controllers/pledgeController');
 
 //===============================================
 //                      STORE CRUD 
@@ -65,4 +66,11 @@ router.post('/show/:id/addreview', catchErrors(reviewController.addReview)
 );
 
 router.get('/show/:id/getReviews', catchErrors(reviewController.getReviews)
+);
+
+
+//===============================================
+//                  PLEDGE
+//===============================================
+router.post('/show/:id/pledge', catchErrors(pledgeController.addPledge)
 );

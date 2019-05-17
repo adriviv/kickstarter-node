@@ -24,7 +24,11 @@ author: {
     required: 'You must supply an author'
 },
 photo: String, 
-tags: [String]
+tags: [String],
+},
+{
+toJSON: { virtuals: true}, // allow you see with pre=h.dump(store) all the virtual JSON and virtual Objects
+toObject: {virtuals: true},
 });
 
 //====================================================================
@@ -40,5 +44,29 @@ projectSchema.statics.getTagsList = function() { // statics make our own method 
     ]);
 };
 
+
+// //find reviews where the stores _id property === reviews store property
+projectSchema.virtual('pledges', {
+// Tell to go off to an other model and make a query
+    ref: 'Pledge',  // what model to link
+    localField: '_id', // witch field on the store
+    foreignField: 'project' // witch fields on the review
+});
+
+projectSchema.virtual('reviews', {
+// Tell to go off to an other model and make a query
+    ref: 'Review',  // what model to link
+    localField: '_id', // witch field on the store
+    foreignField: 'project' // witch fields on the review
+});
+    
+function autopopulate(next) {
+    this.populate('pledges');
+    this.populate('reviews');
+    next();
+    };
+
+projectSchema.pre('find', autopopulate);
+projectSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('Project', projectSchema);

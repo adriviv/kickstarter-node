@@ -21,6 +21,7 @@ mongoose.connection.on('error', (err) => {
 require('./models/Project');
 require('./models/User');
 require('./models/Review');
+require('./models/Pledge');
 
 // Start our app!
 const app = require('./app');
