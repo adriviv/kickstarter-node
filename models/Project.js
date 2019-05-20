@@ -23,6 +23,20 @@ author: {
     ref: 'User',
     required: 'You must supply an author'
 },
+pledgeObjective: {
+    type: Number,
+    required: 'You must supply an objective'
+},
+expireAt: {
+    type: Date,
+    validate: [ function(v) {
+        return (v - new Date()) <= 2628000000;
+    }, 'Cannot expire more than 60 seconds in the future.' ],
+    default: function() {
+        // 60 seconds from now
+        return new Date(new Date().valueOf() + 2628000000);
+    }
+},
 photo: String, 
 tags: [String],
 },
