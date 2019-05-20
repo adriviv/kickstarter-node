@@ -31,6 +31,8 @@ const Project = mongoose.model('Project');
 exports.getProjects = async (req, res) => {
     // res.json({ it: 'Worked'})
     const projects = await Project.find();
+    // let sum = await (this.pledge).reduce((sum, x) => sum + x);
+
     res.json({projects: projects});
 };
 
@@ -73,3 +75,5 @@ exports.getProjectsByTag = async (req, res) => {
     const [tags, projects] = await Promise.all([tagsPromise, projectsPromise]); // We do 2 queries and wait for both finish to go to next step 
     res.json({ tags, title: 'Tags', tag, projects});
  };
+
+

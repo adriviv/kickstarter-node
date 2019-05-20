@@ -45,6 +45,10 @@ projectSchema.statics.getTagsList = function() { // statics make our own method 
 };
 
 
+
+//====================================================================
+//                                    PLEDGE + REVIEWS AUTOPOULTATE
+//====================================================================
 // //find reviews where the stores _id property === reviews store property
 projectSchema.virtual('pledges', {
 // Tell to go off to an other model and make a query
@@ -66,7 +70,23 @@ function autopopulate(next) {
     next();
     };
 
+
 projectSchema.pre('find', autopopulate);
 projectSchema.pre('findOne', autopopulate);
+
+
+
+projectSchema.virtual('sumOfPledges').get(function () {
+    // const pledges = this.pledges 
+    Array.prototype.sum = function (prop) {
+        var total = 0
+        for ( var i = 0, _len = this.length; i < _len; i++ ) {
+            total += this[i][prop]
+        }
+        return total
+    }
+    return this.pledges.sum("pledge")
+});
+
 
 module.exports = mongoose.model('Project', projectSchema);
