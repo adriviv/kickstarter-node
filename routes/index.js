@@ -6,6 +6,8 @@ const passport = require('passport'); // for crypted passeword
 const projectController = require('../controllers/projectController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const reviewController = require('../controllers/reviewController');
+const pledgeController = require('../controllers/pledgeController');
 
 //===============================================
 //                      STORE CRUD 
@@ -37,16 +39,17 @@ router.get('/tags/undefined', catchErrors(projectController.getProjectsByTag));
 //SHOW
 router.get('/tags/:tag', catchErrors(projectController.getProjectsByTag));
 
-
 //===============================================
 //                   LOGIN / REGISTER
 //===============================================
+// REGISTER
 router.post('/register',
  userController.validateRegister, // 2- Check & validates all the form data
  userController.register, 
  passport.authenticate('local'), authController.login
  );
        
+ // LOGIN
 router.post('/login', passport.authenticate('local'), authController.login);
 
 
@@ -54,3 +57,20 @@ router.post('/login', passport.authenticate('local'), authController.login);
  router.get('/logout', authController.logout);
 
 module.exports = router;
+
+
+//===============================================
+//                  REVIEWS
+//===============================================
+router.post('/show/:id/addreview', catchErrors(reviewController.addReview)
+);
+
+router.get('/show/:id/getReviews', catchErrors(reviewController.getReviews)
+);
+
+
+//===============================================
+//                  PLEDGE
+//===============================================
+router.post('/show/:id/pledge', catchErrors(pledgeController.addPledge)
+);

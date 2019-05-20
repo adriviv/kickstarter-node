@@ -20,6 +20,8 @@ mongoose.connection.on('error', (err) => {
 // READY?! Let's go!
 require('./models/Project');
 require('./models/User');
+require('./models/Review');
+require('./models/Pledge');
 
 // Start our app!
 const app = require('./app');
