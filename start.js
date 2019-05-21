@@ -22,6 +22,7 @@ require('./models/Project');
 require('./models/User');
 require('./models/Review');
 require('./models/Pledge');
+require('./models/Favorite');
 
 // Start our app!
 const app = require('./app');

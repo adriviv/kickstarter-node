@@ -8,6 +8,7 @@ const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const reviewController = require('../controllers/reviewController');
 const pledgeController = require('../controllers/pledgeController');
+const favoriteController = require('../controllers/favoriteController');
 
 //===============================================
 //                      STORE CRUD 
@@ -84,3 +85,9 @@ router.post('/dashboard/:id', catchErrors(projectController.getProjectDashboard)
 //                 SEARCH BAR
 //===============================================
 router.post('/searchProject', catchErrors(projectController.searchProjects));
+
+
+//===============================================
+//                FAVORITES
+//===============================================
+router.post('/api/stores/:id/heart', catchErrors(projectController.heartStore ));

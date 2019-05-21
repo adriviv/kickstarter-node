@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Project = mongoose.model('Project');
-
+const User = mongoose.model('User');
 
 // // upload images setups
 // // =====================================
@@ -103,3 +103,22 @@ exports.searchProjects = async (req, res) => {
         res.json()
     } 
 }; 
+
+
+//=================================================
+//                     ADD TO FAVORITES
+//=================================================
+exports.heartStore = async (req, res) => {
+    // 1 - list all the hearts id 
+    const hearts = req.user.hearts.map(obj => obj.toString()); 
+    // 2 -  check if the heart is already in the array : if it is we remove, otherwise we add 
+    const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet' ; // MongoDb method => $pull = rm / push = add / BUT bc we want to be unique we usse $addToSet
+    const user = await User
+    .findByIdAndUpdate(req.user._id,
+        { [operator]: { hearts: req.params.id }},
+        { new: true }
+    );
+    res.json(user); // when click on the heart should add one store in the list of heart , if already favorites shoud remove one 
+    // to check the heart color active or not ==> cf storeCard.pug ligne 9 - 13
+    // to make the hart stay red or white without reload the page => CF public/javascript/heart.js 
+};
