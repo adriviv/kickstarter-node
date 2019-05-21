@@ -30,7 +30,7 @@ const Project = mongoose.model('Project');
 //INDEX
 exports.getProjects = async (req, res) => {
     // res.json({ it: 'Worked'})
-    const projects = await Project.find();
+    const projects = await Project.find().populate('author projects');
     // let sum = await (this.pledge).reduce((sum, x) => sum + x);
 
     res.json({projects: projects});
@@ -39,7 +39,7 @@ exports.getProjects = async (req, res) => {
 //SHOW
 exports.showProject = async (req, res) => {
     //  res.json(req.params);
-     const project = await Project.findOne({ _id: req.params.slug });
+     const project = await Project.findOne({ _id: req.params.slug }).populate('author projects');
      res.json(project);
 };
 
@@ -78,8 +78,6 @@ exports.getProjectsByTag = async (req, res) => {
 
 
 
-
-
 //=================================================
 //                     USER DASHBOARD
 //=================================================
@@ -87,4 +85,21 @@ exports.getProjectDashboard = async (req, res) => {
         // res.json({it: "work"})
         const project = await Project.find({ author: req.params.userId });
         res.json(project);
+}; 
+
+
+//=================================================
+//                     SEARCH BAR
+//=================================================
+exports.searchProjects = async (req, res) => {
+     const top = req.body.searchKeyword
+    if (top.length >= 3){
+        const project = await Project.find(
+            { name: { '$regex' : req.body.searchKeyword, '$options' : 'i' } } ||
+            { description: { '$regex' : req.body.searchKeyword, '$options' : 'i' } } 
+            ).populate('author projects');
+        res.json(project);
+    } else {
+        res.json()
+    } 
 }; 

@@ -77,7 +77,7 @@ projectSchema.virtual('reviews', {
     localField: '_id', // witch field on the store
     foreignField: 'project' // witch fields on the review
 });
-    
+
 function autopopulate(next) {
     this.populate('pledges');
     this.populate('reviews');

@@ -72,10 +72,15 @@ router.get('/show/:id/getReviews', catchErrors(reviewController.getReviews)
 //===============================================
 //                  PLEDGE
 //===============================================
-router.post('/show/:id/pledge', catchErrors(pledgeController.addPledge)
-);
+router.post('/show/:id/pledge', catchErrors(pledgeController.addPledge));
+
 
 //===============================================
 //                  Dashboard
 //===============================================
 router.post('/dashboard/:id', catchErrors(projectController.getProjectDashboard));
+
+//===============================================
+//                 SEARCH BAR
+//===============================================
+router.post('/searchProject', catchErrors(projectController.searchProjects));
