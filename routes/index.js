@@ -75,3 +75,7 @@ router.get('/show/:id/getReviews', catchErrors(reviewController.getReviews)
 router.post('/show/:id/pledge', catchErrors(pledgeController.addPledge)
 );
 
+//===============================================
+//                  Dashboard
+//===============================================
+router.post('/dashboard/:id', catchErrors(projectController.getProjectDashboard));

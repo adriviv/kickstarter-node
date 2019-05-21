@@ -77,3 +77,14 @@ exports.getProjectsByTag = async (req, res) => {
  };
 
 
+
+
+
+//=================================================
+//                     USER DASHBOARD
+//=================================================
+exports.getProjectDashboard = async (req, res) => {
+        // res.json({it: "work"})
+        const project = await Project.find({ author: req.params.userId });
+        res.json(project);
+}; 
