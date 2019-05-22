@@ -30,7 +30,7 @@ const User = mongoose.model('User');
 //INDEX
 exports.getProjects = async (req, res) => {
     // res.json({ it: 'Worked'})
-    const projects = await Project.find().populate('author projects');
+    const projects = await Project.find().sort({ created: 'desc' }).populate('author projects');
     // let sum = await (this.pledge).reduce((sum, x) => sum + x);
 
     res.json({projects: projects});
@@ -122,3 +122,17 @@ exports.heartStore = async (req, res) => {
     // to check the heart color active or not ==> cf storeCard.pug ligne 9 - 13
     // to make the hart stay red or white without reload the page => CF public/javascript/heart.js 
 };
+
+
+// { $lookup:
+//     { from: 'reviews', localField: '_id', foreignField: 'store', as: 'reviews' }
+// },
+// // 2 - filter for only items that have 2 or more reviews
+// { $match: { 'reviews.1': { $exists: true } }},
+// // 3 - add the average reviews field for each store
+// { $addFields: {  averageRating: { $avg: '$reviews.rating' } }},
+// // 4 - sort it by our new field, highest reviews first
+// { $sort: {averageRating: -1 }},
+// // 5 - limit to at most 10
+// { $limit: 10 }
+// ]);
