@@ -82,8 +82,8 @@ exports.getProjectsByTag = async (req, res) => {
 //                     USER DASHBOARD
 //=================================================
 exports.getProjectDashboard = async (req, res) => {
-        // res.json({it: "work"})
-        const project = await Project.find({ author: req.params.userId });
+        console.log(req.params)
+        const project = await Project.find({ author: req.params.id });
         res.json(project);
 }; 
 
