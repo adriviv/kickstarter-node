@@ -25,8 +25,7 @@ author: {
 },
 pledgeObjective: {
     type: Number,
-    required: 'You must supply an objective',
-    default: 0
+    required: 'You must supply an objective'
 },
 expireAt: {
     type: Date,
