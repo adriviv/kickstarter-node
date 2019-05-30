@@ -23,6 +23,20 @@ author: {
     ref: 'User',
     required: 'You must supply an author'
 },
+pledgeObjective: {
+    type: Number,
+    required: 'You must supply an objective'
+},
+expireAt: {
+    type: Date,
+    validate: [ function(v) {
+        return (v - new Date()) <= 2628000000;
+    }, 'Cannot expire more than 60 seconds in the future.' ],
+    default: function() {
+        // 60 seconds from now
+        return new Date(new Date().valueOf() + 2628000000);
+    }
+},
 photo: String, 
 tags: [String],
 },
@@ -45,6 +59,10 @@ projectSchema.statics.getTagsList = function() { // statics make our own method 
 };
 
 
+
+//====================================================================
+//                                    PLEDGE + REVIEWS AUTOPOULTATE
+//====================================================================
 // //find reviews where the stores _id property === reviews store property
 projectSchema.virtual('pledges', {
 // Tell to go off to an other model and make a query
@@ -59,14 +77,30 @@ projectSchema.virtual('reviews', {
     localField: '_id', // witch field on the store
     foreignField: 'project' // witch fields on the review
 });
-    
+
 function autopopulate(next) {
     this.populate('pledges');
     this.populate('reviews');
     next();
     };
 
+
 projectSchema.pre('find', autopopulate);
 projectSchema.pre('findOne', autopopulate);
+
+
+
+projectSchema.virtual('sumOfPledges').get(function () {
+    // const pledges = this.pledges 
+    Array.prototype.sum = function (prop) {
+        var total = 0
+        for ( var i = 0, _len = this.length; i < _len; i++ ) {
+            total += this[i][prop]
+        }
+        return total
+    }
+    return this.pledges.sum("pledge")
+});
+
 
 module.exports = mongoose.model('Project', projectSchema);

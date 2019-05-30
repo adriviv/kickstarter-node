@@ -23,6 +23,11 @@ const pledgeSchema = new mongoose.Schema({
 
 });
 
+
+
+
+
+
 // EACH OF AUTHOR INFORMATION WILL BE ACCESSIBLE thanks to that
 //=======================================================
 // when the author is queried , it automaticcaly autopopulate for us that we need information abot the author

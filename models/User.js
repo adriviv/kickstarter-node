@@ -29,10 +29,28 @@ const userSchema = new Schema({
     },
     resetPasswordToken: String, 
     resetPasswordExpires: Date,
-});
+    hearts: [
+        { type: mongoose.Schema.ObjectId, ref: 'Store'}
+      ]
+},
 
+{
+    toJSON: { virtuals: true}, // allow you see with pre=h.dump(store) all the virtual JSON and virtual Objects
+    toObject: {virtuals: true},
+  });
+
+
+// REGISTER 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(mongodbErrorHandler);
 
+
+
+// AVATAR
+userSchema.virtual('gravatar').get(function(){
+    const hash = md5(this.email);
+    return `https://gravatar.com/avatar/${hash}?s=200`; // ?s=200 is the size of the avatar
+  });
+  
 module.exports = mongoose.model('User', userSchema);
 
