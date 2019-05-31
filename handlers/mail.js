@@ -5,7 +5,7 @@ const htmlToText = require('html-to-text'); // to allow email to receive HTML li
 const promisify = require('es6-promisify');
 
 
-// a transport is a way to manage to send email
+// A TRANSPORT IS ALL THE INFOS NEEDED FOR SEND MAIL 
 const transport = nodemailer.createTransport({
     host: process.env.MAIL_HOST, // all the infos are variables.env
     port: process.env.MAIL_PORT,

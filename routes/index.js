@@ -100,3 +100,18 @@ router.post('/api/stores/:id/heart', catchErrors(projectController.heartStore ))
 router.post('/newslettersubscription', catchErrors(newsletterController.subscribe));
 
 
+// ===============================================================
+//                           FORGOT EMAIL
+// ===============================================================
+// CHECK IF THE EMAIL EXIST
+router.post('/account/forgot', catchErrors(authController.forgot))
+
+//SEND TOKEN and redirect to reset form
+router.get('/account/reset/:token', catchErrors(authController.reset));
+
+// UPDATE PASSWORD
+router.post('/account/reset/:token',
+    authController.confirmedPasswords, // confirmed if both password are the same
+    catchErrors(authController.update) // update paswword
+);
+
