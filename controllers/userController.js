@@ -9,7 +9,6 @@ const promisify = require('es6-promisify');
 
 // VALIDATE DATA IN THE FORM 
 exports.validateRegister = (req, res, next) => {
-    //console.log(req.body)
     req.sanitizeBody('name');
     req.checkBody('first_name', 'You must supply a first name!').notEmpty();
     req.checkBody('last_name', 'You must supply a last name!').notEmpty();
@@ -26,9 +25,9 @@ exports.validateRegister = (req, res, next) => {
     if (errors) {
       console.log('error', errors.map(err => err.msg));
       res.status(500).send({ error: "boo:(" });
-      return; // stop the fn from running
+      return; 
     } 
-    next(); // there were no errors!
+    next(); 
 }; 
 
 exports.register = async (req, res, next) => {
@@ -37,12 +36,11 @@ exports.register = async (req, res, next) => {
   
   // CREATE A NEW USER 
   exports.register = async (req, res) => {
-    //   console.log('nihao',req.body)
+
     const user = new User({email: req.body.email, first_name: req.body.first_name, last_name: req.body.last_name });
-    // console.log('nihao',user)
-    const register = promisify(User.register, User); // encrypt the password
+    const register = promisify(User.register, User);
     await register(user, req.body.password);
-    res.json('it worked');
+    // res.json('it worked');
     next();
   };
 
