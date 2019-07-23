@@ -1,4 +1,4 @@
-const mongoose = require('mongoose'); // have access to database
+const mongoose = require('mongoose'); 
 const Pledge = mongoose.model('Pledge');
 
 exports.addPledge = async (req, res) => {
