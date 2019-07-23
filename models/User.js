@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
-//SPECIFIC SETUP 
 const md5 = require('md5');
 const validator = require('validator');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
@@ -35,7 +34,7 @@ const userSchema = new Schema({
 },
 
 {
-    toJSON: { virtuals: true}, // allow you see with pre=h.dump(store) all the virtual JSON and virtual Objects
+    toJSON: { virtuals: true}, 
     toObject: {virtuals: true},
   });
 
