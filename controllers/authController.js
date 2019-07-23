@@ -9,7 +9,6 @@ exports.login = (req, res) => {
     res.send(req.user);
 };
 
-
 //LOGOUT
 exports.logout = (req, res) => {
     req.logout();
