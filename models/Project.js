@@ -33,7 +33,6 @@ expireAt: {
         return (v - new Date()) <= 2628000000;
     }, 'Cannot expire more than 60 seconds in the future.' ],
     default: function() {
-        // 60 seconds from now
         return new Date(new Date().valueOf() + 2628000000);
     }
 },
@@ -41,20 +40,19 @@ photo: String,
 tags: [String],
 },
 {
-toJSON: { virtuals: true}, // allow you see with pre=h.dump(store) all the virtual JSON and virtual Objects
+toJSON: { virtuals: true},
 toObject: {virtuals: true},
 });
 
 //====================================================================
 //                                      TAGS
 //====================================================================
-// Our OWN FUnction  to find Tags
-projectSchema.statics.getTagsList = function() { // statics make our own method work
-    return this.aggregate([ //Agregate is like findById for many parameters for Mongo
-        // to know the diff agregate operators check MongoDb doc
+
+projectSchema.statics.getTagsList = function() { 
+    return this.aggregate([
         { $unwind: '$tags'},
-        { $group: { _id: '$tags', count: { $sum: 1 } } }, // group everything based on the tag field  and create a new field count that sum +1 each time
-        { $sort: { count: -1 } }// sort by most popular (1 is ascending, -1 is descending)
+        { $group: { _id: '$tags', count: { $sum: 1 } } },
+        { $sort: { count: -1 } }
     ]);
 };
 
@@ -63,19 +61,17 @@ projectSchema.statics.getTagsList = function() { // statics make our own method 
 //====================================================================
 //                                    PLEDGE + REVIEWS AUTOPOULTATE
 //====================================================================
-// //find reviews where the stores _id property === reviews store property
+
 projectSchema.virtual('pledges', {
-// Tell to go off to an other model and make a query
-    ref: 'Pledge',  // what model to link
-    localField: '_id', // witch field on the store
-    foreignField: 'project' // witch fields on the review
+    ref: 'Pledge',  
+    localField: '_id', 
+    foreignField: 'project' 
 });
 
 projectSchema.virtual('reviews', {
-// Tell to go off to an other model and make a query
-    ref: 'Review',  // what model to link
-    localField: '_id', // witch field on the store
-    foreignField: 'project' // witch fields on the review
+    ref: 'Review', 
+    localField: '_id', 
+    foreignField: 'project'
 });
 
 function autopopulate(next) {
@@ -90,8 +86,7 @@ projectSchema.pre('findOne', autopopulate);
 
 
 
-projectSchema.virtual('sumOfPledges').get(function () {
-    // const pledges = this.pledges 
+projectSchema.virtual('sumOfPledges').get(function () { 
     Array.prototype.sum = function (prop) {
         var total = 0
         for ( var i = 0, _len = this.length; i < _len; i++ ) {
