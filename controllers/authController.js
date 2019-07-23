@@ -3,7 +3,6 @@ const crypto = require('crypto'); // for crypted token
 const mongoose = require('mongoose'); // have access to database
 const User = mongoose.model('User');
 const promisify = require('es6-promisify');
-// const mail = require('../handlers/mail'); // To send mail
 
 //LOGIN
 exports.login = (req, res) => {
@@ -14,5 +13,5 @@ exports.login = (req, res) => {
 //LOGOUT
 exports.logout = (req, res) => {
     req.logout();
-    res.json({You: "are disconected"});    // res.redirect('/');
+    res.json({You: "are disconected"});  
 };
